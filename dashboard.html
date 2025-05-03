@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+<h1>Welcome, <span th:text="${username}"></span>!</h1>
+
+<div th:if="${#authentication?.authorities.?[authority == 'ROLE_ADMIN']}">
+    <a href="/admin">Admin Panel</a>
+</div>
+<div th:if="${#authentication?.authorities.?[authority == 'ROLE_MANAGER']}">
+    <a href="/manager">Manager Panel</a>
+</div>
+<div th:if="${#authentication?.authorities.?[authority == 'ROLE_USER']}">
+    <a href="/user">User Panel</a>
+</div>
+
+<a href="/logout">Logout</a>
+</body>
+</html>
