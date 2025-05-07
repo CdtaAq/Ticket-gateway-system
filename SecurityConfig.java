@@ -8,6 +8,9 @@ public class SecurityConfig {
         return http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/login", "/css/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/manager/**").hasRole("MANAGER")
+                .requestMatchers("/user/**").hasRole("USER")
                 .anyRequest().authenticated())
             .formLogin(form -> form
                 .loginPage("/login")
@@ -22,3 +25,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
