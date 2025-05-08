@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
@@ -28,14 +26,15 @@ public class TicketController {
         return ResponseEntity.ok(ticket);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Ticket> getTicketById(@PathVariable Long id) {
-        Ticket ticket = ticketService.getTicketById(id);
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<Ticket> approveTicket(@PathVariable Long id) {
+        Ticket ticket = ticketService.updateTicketStatus(id, "APPROVED");
         return ResponseEntity.ok(ticket);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Ticket>> getAllTickets() {
-        return ResponseEntity.ok(ticketService.getAllTickets());
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<Ticket> rejectTicket(@PathVariable Long id) {
+        Ticket ticket = ticketService.updateTicketStatus(id, "REJECTED");
+        return ResponseEntity.ok(ticket);
     }
 }
