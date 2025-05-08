@@ -1,0 +1,94 @@
+{
+    "info": {
+        "name": "Ticketing Gateway System API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Ticket",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "formdata",
+                    "formdata": [
+                        {
+                            "key": "title",
+                            "value": "Test Ticket",
+                            "type": "text"
+                        },
+                        {
+                            "key": "description",
+                            "value": "Test Description",
+                            "type": "text"
+                        },
+                        {
+                            "key": "priority",
+                            "value": "HIGH",
+                            "type": "text"
+                        },
+                        {
+                            "key": "category",
+                            "value": "BUG",
+                            "type": "text"
+                        },
+                        {
+                            "key": "files",
+                            "type": "file",
+                            "src": ""
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "http://localhost:8080/api/tickets/create",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "tickets",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get All Tickets",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/api/tickets",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "tickets"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get Ticket by ID",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/api/tickets/1",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "tickets",
+                        "1"
+                    ]
+                }
+            }
+        }
+    ]
+}
