@@ -16,35 +16,35 @@ public class SecurityConfig {
 
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-http
-.authorizeRequests()
-.requestMatchers("/manager/**").hasRole("MANAGER")
-.requestMatchers("/admin/**").hasRole("ADMIN")
-.requestMatchers("/user/**").hasRole("USER")
-.anyRequest().authenticated()
-.and()
-.exceptionHandling()
-.accessDeniedPage("/access-denied")
-.and()
-.logout()
-.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-.addLogoutHandler(cookieClearingLogoutHandler())
-.logoutSuccessUrl("/login?logout=true")
-.invalidateHttpSession(true)
-.deleteCookies("JSESSIONID")
-.and()
-.csrf().disable();
+  http
+    .authorizeRequests()
+      .requestMatchers("/manager/**").hasRole("MANAGER")
+      .requestMatchers("/admin/**").hasRole("ADMIN")
+      .requestMatchers("/user/**").hasRole("USER")
+      .anyRequest().authenticated()
+    .and()
+    .exceptionHandling()
+      .accessDeniedPage("/access-denied")
+    .and()
+    .logout()
+      .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+      .addLogoutHandler(cookieClearingLogoutHandler())
+      .logoutSuccessUrl("/login?logout=true")
+      .invalidateHttpSession(true)
+      .deleteCookies("JSESSIONID")
+    .and()
+    .csrf().disable();
 
-return http.build();
-}
+  return http.build();
+  }
 
-@Bean
-public PasswordEncoder passwordEncoder() {
-return new BCryptPasswordEncoder();
-}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-@Bean
-public LogoutHandler cookieClearingLogoutHandler() {
-return new CookieClearingLogoutHandler("JSESSIONID");
-}
+  @Bean
+  public LogoutHandler cookieClearingLogoutHandler() {
+    return new CookieClearingLogoutHandler("JSESSIONID");
+  }
 }
