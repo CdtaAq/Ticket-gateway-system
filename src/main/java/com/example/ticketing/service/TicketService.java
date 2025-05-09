@@ -1,62 +1,64 @@
-package com.example.ticketing.service;
+package com.ticketing.service;
 
-import com.example.ticketing.entity.*;
-import com.example.ticketing.repository.*;
+import com.ticketing.entity.Ticket;
+import com.ticketing.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
 
     @Autowired
-    private TicketRepository ticketRepo;
+    private TicketRepository ticketRepository;
 
-    @Autowired
-    private TicketHistoryRepository historyRepo;
+    private static final String UPLOAD_DIR = "uploads/";
 
-    public Ticket createTicket(Ticket ticket, MultipartFile file, Employee creator) throws IOException {
-        if (file != null && !file.isEmpty()) {
-            String path = "uploads/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
-            Files.copy(file.getInputStream(), Paths.get(path), StandardCopyOption.REPLACE_EXISTING);
-            ticket.setAttachmentPath(path);
+    public Ticket createTicket(Ticket ticket, MultipartFile file) {
+        try {
+            if (file != null && !file.isEmpty()) {
+                String filePath = saveFile(file);
+                ticket.setFileAttachmentPath(filePath);
+            }
+            return ticketRepository.save(ticket);
+        } catch (IOException e) {
+            throw new RuntimeException("File upload error: " + e.getMessage());
         }
-
-        ticket.setStatus("CREATED");
-        ticket.setCreatedBy(creator);
-        Ticket savedTicket = ticketRepo.save(ticket);
-        addHistory(savedTicket, "CREATED", creator);
-        return savedTicket;
     }
 
-    public Ticket updateStatus(Long id, String action, Employee performer) {
-        Ticket ticket = ticketRepo.findById(id).orElseThrow();
-        ticket.setStatus(action);
-        Ticket updated = ticketRepo.save(ticket);
-        addHistory(updated, action, performer);
-        return updated;
-    }
-
-    private void addHistory(Ticket ticket, String action, Employee by) {
-        TicketHistory history = new TicketHistory();
-        history.setTicket(ticket);
-        history.setAction(action);
-        history.setTimestamp(LocalDateTime.now());
-        history.setPerformedBy(by);
-        historyRepo.save(history);
+    private String saveFile(MultipartFile file) throws IOException {
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        String filePath = UPLOAD_DIR + file.getOriginalFilename();
+        Files.copy(file.getInputStream(), Paths.get(filePath));
+        return filePath;
     }
 
     public List<Ticket> getAllTickets() {
-        return ticketRepo.findAll();
+        return ticketRepository.findAll();
     }
 
-    public List<TicketHistory> getHistory(Long ticketId) {
-        Ticket ticket = ticketRepo.findById(ticketId).orElseThrow();
-        return ticket.getHistory();
+    public Optional<Ticket> getTicketById(Long id) {
+        return ticketRepository.findById(id);
+    }
+
+    public Ticket updateTicketStatus(Long ticketId, String status) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticketId);
+        if (ticketOptional.isPresent()) {
+            Ticket ticket = ticketOptional.get();
+            ticket.setStatus(status);
+            return ticketRepository.save(ticket);
+        }
+        throw new RuntimeException("Ticket not found.");
     }
 }
