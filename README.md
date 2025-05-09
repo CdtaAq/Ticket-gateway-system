@@ -86,18 +86,6 @@ The Ticketing Gateway System is a Spring Boot microservices application for mana
 - **Resolve Ticket:** `/tickets/resolve/{id}`
 - **Reopen Ticket:** `/tickets/reopen/{id}`
 
----
 
-## 📷 Screenshots
-- Login Page (placeholder)
-- Dashboard (placeholder)
-- Ticket Creation Form (placeholder)
-
----
-
-## 🛠️ Future Extensions
-- Real-time WebSocket notifications
-- Docker containerization
-- Enhanced reporting and analytics
 
 ---
