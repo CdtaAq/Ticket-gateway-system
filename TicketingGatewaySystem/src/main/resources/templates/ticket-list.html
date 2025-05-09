@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ticket List</title>
+</head>
+<body>
+
+<h2>All Tickets</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <th:block th:each="ticket : ${tickets}">
+        <tr>
+            <td th:text="${ticket.id}"></td>
+            <td th:text="${ticket.title}"></td>
+            <td th:text="${ticket.status}"></td>
+            <td>
+                <form action="/tickets/approve" method="post" style="display:inline;">
+                    <input type="hidden" name="ticketId" th:value="${ticket.id}">
+                    <button type="submit">Approve</button>
+                </form>
+
+                <form action="/tickets/reject" method="post" style="display:inline;">
+                    <input type="hidden" name="ticketId" th:value="${ticket.id}">
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>
