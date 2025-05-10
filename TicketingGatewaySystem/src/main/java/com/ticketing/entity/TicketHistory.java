@@ -15,16 +15,17 @@ public class TicketHistory {
 
     private String action;
     private String actionBy;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date actionDate = new Date();
 
     private String comments;
 
-    // Constructors, Getters, Setters
+    // Default Constructor
     public TicketHistory() {
     }
 
+    // Parameterized Constructor
     public TicketHistory(Ticket ticket, String action, String actionBy, String comments) {
         this.ticket = ticket;
         this.action = action;
@@ -33,5 +34,52 @@ public class TicketHistory {
     }
 
     // Getters and Setters
-    // ...
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public String getActionBy() {
+        return actionBy;
+    }
+
+    public void setActionBy(String actionBy) {
+        this.actionBy = actionBy;
+    }
+
+    public Date getActionDate() {
+        return actionDate;
+    }
+
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }
