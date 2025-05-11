@@ -58,11 +58,3 @@ The Ticketing Gateway System is a role-based ticket management system designed t
 - Ticket Creation Form (Insert Screenshot)
 - Email Notification (Insert Screenshot)
 
----
-
-## 🛠️ Potential Extensions:
-- Implement real-time WebSocket notifications.
-- Containerize services using Docker.
-- Integrate third-party email services for reliable messaging.
-
----
