@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+
+  gateway-service:
+    build: ./GatewayService
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ticket-service
+      - notification-service
+    networks:
+      - ticketing-network
+
+  ticket-service:
+    build: ./TicketService
+    ports:
+      - "8081:8081"
+    networks:
+      - ticketing-network
+
+  notification-service:
+    build: ./NotificationService
+    ports:
+      - "8082:8082"
+    networks:
+      - ticketing-network
+
+  database:
+    build: ./database
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: ticketing_db
+    networks:
+      - ticketing-network
+
+networks:
+  ticketing-network:
+    driver: bridge
