@@ -1,10 +1,10 @@
-package com.ticketing.repository;
+//package com.ticketing.repository;
 
-import com.ticketing.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+//import com.ticketing.entity.User;
+//import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+//import java.util.Optional;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Optional<User> findByUsername(String username);
-}
+//public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+//    Optional<User> findByUsername(String username);
+//}
