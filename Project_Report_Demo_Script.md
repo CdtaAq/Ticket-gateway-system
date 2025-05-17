@@ -52,9 +52,3 @@ The Ticketing Gateway System is a role-based ticket management system designed t
 
 ---
 
-## 📷 Screenshots (Placeholders):
-- Login Page (Insert Screenshot)
-- Dashboard View (Insert Screenshot)
-- Ticket Creation Form (Insert Screenshot)
-- Email Notification (Insert Screenshot)
-
