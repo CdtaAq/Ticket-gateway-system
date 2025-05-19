@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+
+    <div>
+        <p>Total Tickets: <span th:text="${totalTickets}"></span></p>
+        <p>Active Tickets: <span th:text="${activeTickets}"></span></p>
+        <p>Resolved Tickets: <span th:text="${resolvedTickets}"></span></p>
+    </div>
+
+    <a th:href="@{/logout}">Logout</a>
+</body>
+</html>
