@@ -14,6 +14,16 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "First name is required")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    private String lastName;
+
+    @NotBlank(message = "Contact phone is required")
+    @Pattern(regexp = "^\\d{10}$", message = "Contact phone must be a 10-digit number")
+    private String contactPhone;
+
     @Email(message = "Invalid email format")
     @NotBlank(message = "Email is required")
     private String username;
@@ -36,7 +46,10 @@ public class Employee {
 
     public Employee() {}
 
-    public Employee(String username, String password, String email, Set<Role> roles) {
+    public Employee(String firstName, String lastName, String contactPhone, String username, String password, String email, Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contactPhone = contactPhone;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -44,12 +57,37 @@ public class Employee {
     }
 
     // Getters and Setters
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public String getUsername() {
