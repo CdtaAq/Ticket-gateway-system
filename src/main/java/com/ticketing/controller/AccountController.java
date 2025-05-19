@@ -39,13 +39,15 @@ public class AccountController {
 
     @PostMapping("/create-account")
     public String createAccount(
+            @NotBlank(message = "First name is required") String firstName,
+            @NotBlank(message = "Last name is required") String lastName,
+            @NotBlank(message = "Contact phone is required") 
+            @Pattern(regexp = "^\\d{10}$", message = "Contact phone must be a 10-digit number") String contactPhone,
             @Email(message = "Invalid email format") 
             @NotBlank(message = "Email is required") String username,
-            
             @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{10,}$", 
                      message = "Password must be at least 10 characters and include 1 uppercase, 1 lowercase, 1 number, and 1 special character") 
             String password,
-            
             String role,
             RedirectAttributes redirectAttributes
     ) {
@@ -57,6 +59,9 @@ public class AccountController {
         }
 
         Employee employee = new Employee();
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
+        employee.setContactPhone(contactPhone);
         employee.setUsername(username);
         employee.setPassword(passwordEncoder.encode(password));
         employee.setEmail(username);
